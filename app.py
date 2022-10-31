@@ -1,13 +1,17 @@
 
-from curses import resize_term
-from gc import callbacks
 import telebot
 from config import TOKEN
 from telebot import types
 import random
+import logging
+from aiogram import Bot, Dispatcher, executor
 
+logging.basicConfig(level=logging.INFO)
 
+API_TOKEN = TOKEN
 bot = telebot.TeleBot(TOKEN)
+bot1 = Bot(token=API_TOKEN)
+dp = Dispatcher(bot1)
 
 
 @bot.message_handler(commands=['help'])
@@ -84,3 +88,5 @@ def callback_inline(call):
 bot.polling(none_stop=True)
 
 
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
